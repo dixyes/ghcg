@@ -5,7 +5,7 @@ from xml.etree.ElementTree import ElementTree, Element
 import os.path
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from pydantic import BaseModel, Field
 
@@ -457,11 +457,11 @@ class GithubStyle(Style):
             if filementColor == self.params.backgroundColor:
                 continue
             content3MF += (
-                f'\ncolor("#{filementColor}") singleFila(filament{filementColor});\n'
+                f'\ncolor("#{filementColor}c0") singleFila(filament{filementColor});\n'
             )
             filamentNames.append(f"{filementColor}")
         # backgroundFila
-        content3MF += f"\nbackgroundFila();\n"
+        content3MF += f'\ncolor("#{self.params.backgroundColor}c0") backgroundFila();\n'
         filamentNames.append(self.params.backgroundColor)
 
         with open(f"{self.workdir}/object.scad", "w") as f:
@@ -484,7 +484,9 @@ class GithubStyle(Style):
 
     def renameObjects(self, year: int, filamentLists: list[str]) -> None:
         with ZipFile(f"{self.workdir}/object_.3mf", "r") as zin:
-            with ZipFile(f"{self.workdir}/object.3mf", "w") as zout:
+            with ZipFile(
+                f"{self.workdir}/object.3mf", "w", compression=ZIP_DEFLATED
+            ) as zout:
                 zout.comment = zin.comment  # preserve the comment
                 for item in zin.infolist():
                     if item.filename != "3D/3dmodel.model":
