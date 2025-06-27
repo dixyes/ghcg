@@ -26,7 +26,7 @@ Using SANLU white and black PLA filament and Bambu "Bambu green" filament, 0.2mm
 
 The model is sliced upside down for better surface.
 
-![Example](assets/example.png)
+![Example](assets/example.jpg)
 
 Key slicing settings:
 
