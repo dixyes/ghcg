@@ -14,13 +14,12 @@ def bwc4levels(color: str, level: int)->list[ColorFilamentLayer]:
         ]
     elif level == 3:
         return [
-            ColorFilamentLayer(l = 2, c=color),
+            ColorFilamentLayer(l = 1, c=color),
             ColorFilamentLayer(l = 2, c="000000"),
         ]
     elif level == 2:
         return [
-            ColorFilamentLayer(l = 3, c=color),
-            ColorFilamentLayer(l = 1, c="000000"),
+            ColorFilamentLayer(l = 4, c=color),
         ]
     elif level == 1:
         return [
